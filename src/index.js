@@ -24,6 +24,11 @@ function gettingCard (toyData){
   <p>${toyData.likes} likes</p>
   <button class="like-btn" id="[toy_id]">Like ❤️</button>
   `
+  card.querySelector('.like-btn').addEventListener('click', () => {
+    toyData.likes+= 1
+    card.querySelector('p').textContent = toyData.likes  // the buuton add 1 to it but it doesnt have likes with it 
+    likes(toyData)
+  })
   document.querySelector('#toy-collection').appendChild(card)
 }
 
@@ -51,27 +56,20 @@ function addingToyPost (toyObj){
 addingToyPost()
 
 //Increase a Toy's Likes
-function likes(event){
-  event.preventDefault()
-  let more = parseInt(event.target.previousElementSibling.innerText) + 1
-  fetch(`http://localhost:3000/toys/${event.target.id}`, {
+function likes(toyLikes){
+  fetch(`http://localhost:3000/toys/${toyLikes.id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json"
     },
-    body: JSON.stringify({
-      "likes": more
-    })
+    body: JSON.stringify(toyLikes) 
   })
   .then(res => res.json())
-  .then(((event) => {
-    event.target.previousElementSibling.innerText = `${more} likes`;
-  }))
+  .then (toy => console.log(toy))
 }
-// button of likes
-let btn = document.querySelector('.like-btn')
-btn.addEventListener('click', event => likes(event))
+
+
 
 
 
