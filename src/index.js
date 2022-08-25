@@ -25,8 +25,8 @@ function gettingCard (toyData){
   <button class="like-btn" id="[toy_id]">Like ❤️</button>
   `
   card.querySelector('.like-btn').addEventListener('click', () => {
-    toyData.likes+= 1
-    card.querySelector('p').textContent = toyData.likes  // the buuton add 1 to it but it doesnt have likes with it 
+    let totalLikes = toyData.likes+= 1
+    card.querySelector('p').textContent = totalLikes + ' likes'  // the buuton add 1 to it but it doesnt have likes with it 
     likes(toyData)
   })
   document.querySelector('#toy-collection').appendChild(card)
